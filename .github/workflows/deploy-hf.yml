@@ -21,6 +21,8 @@ jobs:
       - name: Push to HF Spaces
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
+          HF_USERNAME: ${{ vars.HF_USERNAME }}
+          HF_SPACE_NAME: ${{ vars.HF_SPACE_NAME }}
         run: |
           git config --global user.email "naomi1299@163.com"
           git config --global user.name "Xu-pixel"
