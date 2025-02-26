@@ -1,0 +1,36 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary: #10B981;
+  --bg: #ffffff;
+  --text: #374151;
+}
+
+.dark {
+  --bg: #1F2937;
+  --text: #F9FAFB;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+}
+
+html,
+body,
+#app {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+html.dark {
+  background: #121212;
+}
+
+
+.f{
+  flex:1 1 0
+}
