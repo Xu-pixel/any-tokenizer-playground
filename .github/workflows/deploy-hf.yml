@@ -30,6 +30,7 @@ jobs:
           cd huggingface
           rm -rf *
           cp -r ../dist/* .
+          cp ../README.huggingface-space.md README.md
           git add .
           git commit -m "Update from GitHub Actions"
           git push https://$HF_USERNAME:$HF_TOKEN@huggingface.co/spaces/$HF_USERNAME/$HF_SPACE_NAME main 
