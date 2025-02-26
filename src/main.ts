@@ -9,7 +9,13 @@ import 'uno.css'
 
 const app = createApp(App)
 const router = createRouter({
-  routes,
+  routes:[
+    {
+      path: '/index.html',
+      redirect: '/',
+    },
+    ...routes
+  ],
   history: createWebHistory(import.meta.env.BASE_URL),
 })
 app.use(router)

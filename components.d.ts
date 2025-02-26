@@ -10,9 +10,6 @@ declare module 'vue' {
     ModelSearch: typeof import('./src/components/ModelSearch.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
-    TheCounter: typeof import('./src/components/TheCounter.vue')['default']
-    TheFooter: typeof import('./src/components/TheFooter.vue')['default']
-    TheInput: typeof import('./src/components/TheInput.vue')['default']
     TokenBlock: typeof import('./src/components/TokenBlock.vue')['default']
     TokenizerView: typeof import('./src/components/TokenizerView.vue')['default']
   }
