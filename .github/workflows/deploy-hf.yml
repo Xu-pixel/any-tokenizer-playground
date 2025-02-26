@@ -1,0 +1,35 @@
+name: Deploy to Hugging Face Spaces
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8
+      - name: Install dependencies
+        run: pnpm install
+      - name: Build
+        run: pnpm build
+      - name: Push to HF Spaces
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+          HF_USERNAME: ${{ variables.HF_USERNAME }}
+          HF_SPACE_NAME: ${{ variables.HF_SPACE_NAME }}
+        run: |
+          git config --global user.email "naomi1299@163.com"
+          git config --global user.name "Xu-pixel"
+          git clone https://huggingface.co/$HF_USERNAME/$HF_SPACE_NAME huggingface
+          cd huggingface
+          rm -rf *
+          cp -r ../dist/* .
+          git add .
+          git commit -m "Update from GitHub Actions"
+          git push https://$HF_USERNAME:$HF_TOKEN@huggingface.co/$HF_USERNAME/$HF_SPACE_NAME main 
