@@ -26,7 +26,7 @@ jobs:
         run: |
           git config --global user.email "naomi1299@163.com"
           git config --global user.name "Xu-pixel"
-          git clone https://huggingface.co/$HF_USERNAME/$HF_SPACE_NAME huggingface
+          git clone https://huggingface.co/spaces/$HF_USERNAME/$HF_SPACE_NAME huggingface
           cd huggingface
           rm -rf *
           cp -r ../dist/* .
