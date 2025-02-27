@@ -1,12 +1,15 @@
 <script setup lang="ts">
 import { AutoTokenizer } from '@huggingface/transformers'
-
 import Splitter from 'primevue/splitter'
+
 import SplitterPanel from 'primevue/splitterpanel'
+import { useI18n } from 'vue-i18n'
 
 const props = defineProps<{
   modelId: string
 }>()
+
+const { t } = useI18n()
 
 const inputText = ref('')
 const tokens = ref<{ text: string, id: number }[]>([])
@@ -65,22 +68,22 @@ const stats = computed(() => {
     <SplitterPanel>
       <div class="relative h-full">
         <textarea
-          v-model="inputText" placeholder="输入要分词的文本..."
+          v-model="inputText"
+          :placeholder="t('tokenizer.inputPlaceholder')"
           class="h-full min-h-[200px] w-full resize-none overflow-y-scroll border-2 border-gray-200 rounded-lg bg-white p-4 text-gray-800 outline-none transition-colors dark:border-gray-700 focus:border-green-500 dark:bg-gray-900 dark:text-gray-200 focus:shadow-[0_0_0_2px_rgba(34,197,94,0.2)]"
           :disabled="loading"
         />
-        <!-- 添加统计信息 -->
         <div
           class="absolute bottom-2 left-3 flex gap-3 rounded-sm bg-white p-2 pb-0 pl-0 text-sm text-gray-500 dark:text-gray-400"
           :class="{ 'opacity-50': loading }"
         >
           <div class="flex items-center gap-1">
             <div i-carbon-text-font class="h-4 w-4" />
-            {{ stats.characters }}
+            {{ stats.characters }} {{ t('tokenizer.characters') }}
           </div>
           <div class="flex items-center gap-1">
             <div i-carbon-code class="h-4 w-4" />
-            {{ stats.tokens }}
+            {{ stats.tokens }} {{ t('tokenizer.tokens') }}
           </div>
         </div>
       </div>
@@ -90,29 +93,29 @@ const stats = computed(() => {
       <div v-if="downloading" class="flex flex-1 flex-col items-center justify-center py-8 text-gray-500 dark:text-gray-400">
         <div class="mb-4 h-8 w-8 animate-spin border-2 border-gray-300 border-t-green-500 rounded-full" />
         <div class="mb-2 text-base font-medium">
-          正在下载分词器...
+          {{ t('tokenizer.downloading') }}
         </div>
         <div class="text-sm">
-          首次加载可能需要一些时间
+          {{ t('tokenizer.downloadingHint') }}
         </div>
       </div>
       <div v-else-if="loading" class="flex flex-1 flex-col items-center justify-center py-8 text-gray-500 dark:text-gray-400">
         <div class="mb-4 h-8 w-8 animate-spin border-2 border-gray-300 border-t-green-500 rounded-full" />
         <div class="mb-2 text-base font-medium">
-          初始化分词器中...
+          {{ t('tokenizer.initializing') }}
         </div>
       </div>
       <div
         v-else-if="tokens.length === 0 && inputText"
         class="flex flex-1 items-center justify-center text-gray-500 dark:text-gray-400"
       >
-        无法分词当前文本
+        {{ t('tokenizer.noTokens') }}
       </div>
       <div
         v-else-if="tokens.length === 0"
         class="flex flex-1 items-center justify-center text-gray-500 dark:text-gray-400"
       >
-        在左侧输入文本以查看分词结果
+        {{ t('tokenizer.enterText') }}
       </div>
       <div v-else class="f overflow-auto">
         <div class="flex flex-wrap">

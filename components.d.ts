@@ -7,6 +7,7 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    LangSwitch: typeof import('./src/components/LangSwitch.vue')['default']
     ModelSearch: typeof import('./src/components/ModelSearch.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']

@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { useI18n } from 'vue-i18n'
+
 const props = defineProps<{
   modelId: string
 }>()
@@ -6,6 +8,8 @@ const props = defineProps<{
 const emit = defineEmits<{
   (e: 'update:model-id', value: string): void
 }>()
+
+const { t } = useI18n()
 
 const searchText = ref('')
 const searchResults = ref<string[]>([])
@@ -61,7 +65,7 @@ watch(() => props.modelId, (newId) => {
       <input
         v-model="searchText"
         type="text"
-        placeholder="搜索模型..."
+        :placeholder="t('search.placeholder')"
         class="w-full border-2 border-gray-200 rounded-lg bg-white px-4 py-3 text-gray-800 outline-none transition-colors dark:border-gray-700 focus:border-green-500 dark:bg-gray-900 dark:text-gray-200"
       >
       <div v-if="loading" class="absolute right-3 top-1/2 -translate-y-1/2">
@@ -70,7 +74,7 @@ watch(() => props.modelId, (newId) => {
     </div>
 
     <div v-if="loading && !searchResults.length" class="mt-2 px-2 text-sm text-gray-500 dark:text-gray-400">
-      搜索中...
+      {{ t('search.searching') }}
     </div>
 
     <div v-else-if="searchResults.length" class="mt-2 max-h-64 overflow-auto border border-gray-200 rounded-lg bg-white shadow-sm dark:border-gray-700 dark:bg-gray-900">
